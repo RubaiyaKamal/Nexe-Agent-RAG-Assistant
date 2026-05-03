@@ -2,7 +2,7 @@
  * RAG Assistant — Frontend Application
  * Communicates with the FastAPI backend at http://localhost:8000
  */
-
+const API_BASE = "https://nexe-agent-rag-assistant-production.up.railway.app/"
 const API_URL = "https://your-actual-railway-url.up.railway.app";
 
 // ============================================================
