@@ -99,6 +99,28 @@ class DeleteResponse(BaseModel):
 # Endpoints
 # ---------------------------------------------------------------------------
 
+@app.get("/test-openai", tags=["system"])
+async def test_openai() -> Dict[str, Any]:
+    """Diagnostic: verify OpenAI connectivity from this environment."""
+    import traceback
+    api_key = os.getenv("OPENAI_API_KEY", "")
+    if not api_key:
+        return {"status": "error", "detail": "OPENAI_API_KEY not set"}
+    try:
+        from openai import OpenAI
+        client = OpenAI(api_key=api_key)
+        client.embeddings.create(model="text-embedding-3-small", input="ping")
+        return {"status": "ok", "key_prefix": api_key[:8] + "..."}
+    except Exception as exc:
+        return {
+            "status": "error",
+            "exception_type": type(exc).__name__,
+            "detail": str(exc),
+            "traceback": traceback.format_exc(),
+            "key_prefix": api_key[:8] + "...",
+        }
+
+
 @app.get("/health", tags=["system"])
 async def health_check() -> Dict[str, Any]:
     """Basic readiness probe."""

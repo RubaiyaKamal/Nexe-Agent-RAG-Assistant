@@ -84,9 +84,9 @@ def embed_texts(texts: List[str]) -> List[List[float]]:
         # Response items are ordered by index
         ordered = sorted(response.data, key=lambda d: d.index)
         return [item.embedding for item in ordered]
-    except APIError as exc:
-        logger.error("OpenAI batch embedding API error: %s", exc)
-        raise RuntimeError(f"Embedding API error: {exc}") from exc
+    except Exception as exc:
+        logger.error("OpenAI batch embedding error [%s]: %s", type(exc).__name__, exc, exc_info=True)
+        raise RuntimeError(f"Embedding API error [{type(exc).__name__}]: {exc}") from exc
 
 
 # ---------------------------------------------------------------------------
