@@ -3,7 +3,7 @@
  * Communicates with the FastAPI backend at http://localhost:8000
  */
 
-const API_BASE = "http://localhost:8000";
+const API_URL = "https://your-actual-railway-url.up.railway.app";
 
 // ============================================================
 // State
